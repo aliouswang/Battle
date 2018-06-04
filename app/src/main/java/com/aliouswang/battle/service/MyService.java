@@ -33,6 +33,7 @@ public class MyService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         L.e("onStartCommand");
         L.e("onStartCommand thread : " + Thread.currentThread().getName());
         return super.onStartCommand(intent, flags, startId);
