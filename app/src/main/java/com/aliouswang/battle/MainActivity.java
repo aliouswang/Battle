@@ -6,13 +6,14 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.aliouswang.battle.service.MyConnection;
 import com.aliouswang.battle.service.MyService;
-import com.example.aliouswang.annotationprocessor.BindView;
+import com.example.viewbinder.ViewBinder;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.tv_hello)
+    @ViewBinder(R.id.tv_hello)
     TextView tv_hello;
 
     @Override
@@ -22,11 +23,20 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent service = new Intent(this, MyService.class);
         startService(service);
+        startService(service);
+
+        final MyConnection connection = new MyConnection();
+        bindService(service, connection, BIND_AUTO_CREATE);
+
+        final MyConnection connection2 = new MyConnection();
+        bindService(service, connection2, BIND_AUTO_CREATE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 stopService(service);
+                stopService(service);
+                unbindService(connection2);
             }
         }, 3000);
 
